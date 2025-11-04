@@ -2,7 +2,7 @@ require('dotenv').config();
 const sequelize = require('./models/database');
 const Server = require('./models/server');
 
-sequelize.sync() // Esto crea las tablas si no existen
+sequelize.sync()
     .then(() => {
         console.log('Conexión a la base de datos establecida');
         const server = new Server();
