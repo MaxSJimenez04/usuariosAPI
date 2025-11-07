@@ -3,6 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const connection = require('./database');
 const setupSwagger = require('../swagger');
+const verifyJwt = require('../middleware/verifyJwt');
 
 class Server {
     constructor() {
@@ -21,7 +22,15 @@ class Server {
     }
 
     routes() {
-        this.app.use('/api/usuarios', require('../routes/usuarios'));
+        this.app.use('/api/login', require('../routes/login'));
+        const jwtMiddleware = verifyJwt({
+            audience: process.env.JWT_AUDIENCE,
+            issuer: process.env.JWT_ISSUER
+        });
+
+        this.app.use('/api/usuarios',jwtMiddleware,require('../routes/usuarios'));
+        
+         
     }
 
     swagger() {
