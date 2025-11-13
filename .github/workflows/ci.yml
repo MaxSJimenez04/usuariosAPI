@@ -28,8 +28,8 @@ jobs:
          with:
             node-version: '20.x'
             cache: 'npm'
-      - name: Ejecutar pruebas
-        run: npm test
+       - name: Ejecutar pruebas
+         run: npm test
   docker:
     needs: test
     runs-on: ubuntu-latest
